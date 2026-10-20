@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0a1236">
+<title>Namoz vaqtlari</title>
+<style>
+:root{--bg1:#0a1236;--bg2:#1b1f5e;--bg3:#3a2a73;--gold:#f6c85f;--teal:#2fd9b5;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.12);--txt:#eef1ff;--mut:#9aa3d6}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;background:var(--bg1);color:var(--txt);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+body{background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 55%,var(--bg3) 100%);background-attachment:fixed;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+#stars{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.star{position:absolute;background:#fff;border-radius:50%;animation:tw 3s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.mosque{position:fixed;left:0;right:0;bottom:0;height:150px;opacity:.55;pointer-events:none}
+.wrap{position:relative;max-width:520px;margin:0 auto;padding:18px 16px 170px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:.3px}
+.brand svg{width:34px;height:34px;filter:drop-shadow(0 0 8px rgba(246,200,95,.6))}
+select{appearance:none;background:var(--card);color:var(--txt);border:1px solid var(--line);border-radius:14px;padding:9px 14px;font-size:14px;max-width:160px;backdrop-filter:blur(8px)}
+select option{color:#111}
+.date{margin:16px 2px 4px;color:var(--mut);font-size:14px;text-align:center}
+.date b{color:var(--gold);font-weight:600}
+.hero{position:relative;width:260px;height:260px;margin:10px auto 6px}
+.hero svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{stroke:rgba(255,255,255,.1)}
+.ring{stroke:url(#g);stroke-linecap:round;transition:stroke-dashoffset 1s linear;filter:drop-shadow(0 0 8px rgba(246,200,95,.7))}
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.center small{color:var(--mut);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+.center .nm{font-size:30px;font-weight:800;color:var(--gold);margin:2px 0}
+.center .cd{font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:1px}
+.center .at{color:var(--mut);font-size:13px;margin-top:2px}
+.list{display:grid;gap:10px;margin-top:14px}
+.row{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:13px 16px;backdrop-filter:blur(10px);transition:.3s}
+.row .ic{font-size:24px;width:34px;text-align:center}
+.row .n{flex:1;font-size:17px;font-weight:600}
+.row .t{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+.row.past{opacity:.5}
+.row.next{background:linear-gradient(135deg,rgba(246,200,95,.22),rgba(47,217,181,.14));border-color:rgba(246,200,95,.6);box-shadow:0 0 22px rgba(246,200,95,.25);transform:scale(1.02)}
+.row.next .t{color:var(--gold)}
+.qibla{margin-top:16px;display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px 18px;backdrop-filter:blur(10px)}
+.compass{position:relative;width:74px;height:74px;border-radius:50%;border:2px solid var(--line);background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);flex:none}
+.compass .nd{position:absolute;left:50%;top:50%;width:0;height:0;transition:transform .3s}
+.compass .nd::before{content:"";position:absolute;left:-6px;top:-32px;border:6px solid transparent;border-bottom:30px solid var(--gold);border-top:0;filter:drop-shadow(0 0 5px var(--gold))}
+.compass .nd::after{content:"🕋";position:absolute;left:-9px;top:-42px;font-size:14px}
+.compass i{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px;background:var(--teal);border-radius:50%}
+.qibla h4{margin:0 0 4px;font-size:16px}
+.qibla p{margin:0;color:var(--mut);font-size:13px;line-height:1.4}
+.err{margin-top:14px;text-align:center;color:#ffb4b4;font-size:13px;min-height:16px}
+.foot{margin-top:18px;text-align:center;color:var(--mut);font-size:12px}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<svg class="mosque" viewBox="0 0 400 150" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="mg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b2f86"/><stop offset="1" stop-color="#0a1236"/></linearGradient></defs>
+  <g fill="url(#mg)">
+    <rect x="0" y="130" width="400" height="20"/>
+    <path d="M150 130V95Q200 30 250 95V130Z"/><rect x="196" y="22" width="8" height="22"/><circle cx="200" cy="20" r="4"/>
+    <rect x="112" y="55" width="14" height="75"/><path d="M112 55L119 35L126 55Z"/>
+    <rect x="274" y="55" width="14" height="75"/><path d="M274 55L281 35L288 55Z"/>
+    <path d="M30 130V108Q60 70 90 108V130Z"/><path d="M310 130V108Q340 70 370 108V130Z"/>
+  </g>
+</svg>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <svg viewBox="0 0 64 64"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe9a8"/><stop offset="1" stop-color="#f0a93a"/></linearGradient><mask id="lm"><rect width="64" height="64" fill="#fff"/><circle cx="40" cy="26" r="20" fill="#000"/></mask></defs><circle cx="30" cy="32" r="22" fill="url(#lg)" mask="url(#lm)"/><path d="M45 14l2.2 5 5.3.5-4 3.6 1.2 5.3-4.7-2.8-4.7 2.8 1.2-5.3-4-3.6 5.3-.5z" fill="#ffe9a8" transform="scale(.7) translate(22 6)"/></svg>
+      Namoz vaqtlari
+    </div>
+    <select id="city" aria-label="Shahar"></select>
+  </header>
+
+  <div class="date" id="date"></div>
+
+  <div class="hero">
+    <svg viewBox="0 0 200 200">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6c85f"/><stop offset="1" stop-color="#2fd9b5"/></linearGradient></defs>
+      <circle class="ring-bg" cx="100" cy="100" r="88" fill="none" stroke-width="9"/>
+      <circle class="ring" id="ring" cx="100" cy="100" r="88" fill="none" stroke-width="9" stroke-dasharray="552.9" stroke-dashoffset="552.9"/>
+    </svg>
+    <div class="center">
+      <small>Keyingi namoz</small>
+      <div class="nm" id="nname">—</div>
+      <div class="cd" id="cd">--:--:--</div>
+      <div class="at" id="nat"></div>
+    </div>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <div class="qibla">
+    <div class="compass"><div class="nd" id="needle"></div><i></i></div>
+    <div><h4>Qibla yo'nalishi</h4><p id="qtxt">—</p></div>
+  </div>
+
+  <div class="err" id="err"></div>
+  <div class="foot">Hisob: MWL usuli · Asr: Hanafiy · Ma'lumot: aladhan.com</div>
+</div>
+
+<script>
+const CITIES=[["Toshkent",41.2995,69.2401],["Samarqand",39.6542,66.9597],["Buxoro",39.7747,64.4286],["Namangan",41.0011,71.6683],["Andijon",40.7821,72.3442],["Farg'ona",40.3842,71.7843],["Qo'qon",40.5286,70.9425],["Nukus",42.4531,59.6103],["Urganch",41.5506,60.6317],["Qarshi",38.8606,65.7891],["Termiz",37.2242,67.2783],["Navoiy",40.0844,65.3792],["Jizzax",40.1158,67.8422],["Guliston",40.4897,68.7842]];
+const NAMES=[["Fajr","Bomdod","🌌"],["Sunrise","Quyosh","🌅"],["Dhuhr","Peshin","☀️"],["Asr","Asr","🌤️"],["Maghrib","Shom","🌇"],["Isha","Xufton","🌙"]];
+const UZ_MONTHS=["yanvar","fevral","mart","aprel","may","iyun","iyul","avgust","sentabr","oktabr","noyabr","dekabr"];
+const UZ_DAYS=["Yakshanba","Dushanba","Seshanba","Chorshanba","Payshanba","Juma","Shanba"];
+const HIJRI=["Muharram","Safar","Rabiul-avval","Rabiul-oxir","Jumodil-avval","Jumodil-oxir","Rajab","Sha'bon","Ramazon","Shavvol","Zulqa'da","Zulhijja"];
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,"0");
+const ls={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+// stars
+(function(){const s=$("stars");for(let i=0;i<70;i++){const d=document.createElement("div");d.className="star";const z=Math.random()*2.2+.8;d.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*70}%;width:${z}px;height:${z}px;animation-delay:${Math.random()*3}s;animation-duration:${2+Math.random()*3}s`;s.appendChild(d)}})();
+
+// cities
+const sel=$("city");
+CITIES.forEach((c,i)=>{const o=document.createElement("option");o.value=i;o.textContent=c[0];sel.appendChild(o)});
+const og=document.createElement("option");og.value="gps";og.textContent="📍 Joylashuvim";sel.appendChild(og);
+
+let place=ls.get("nv_place")||{name:"Toshkent",lat:41.2995,lng:69.2401,idx:0};
+sel.value=place.idx==="gps"?"gps":place.idx;
+sel.onchange=()=>{
+  if(sel.value==="gps"){
+    if(!navigator.geolocation){$("err").textContent="Joylashuv qo'llab-quvvatlanmaydi";return}
+    navigator.geolocation.getCurrentPosition(p=>{place={name:"Mening joyim",lat:p.coords.latitude,lng:p.coords.longitude,idx:"gps"};ls.set("nv_place",place);init()},
+      ()=>{$("err").textContent="Joylashuvga ruxsat berilmadi. Shaharni tanlang.";sel.value=place.idx},{timeout:12000});
+  }else{const c=CITIES[+sel.value];place={name:c[0],lat:c[1],lng:c[2],idx:+sel.value};ls.set("nv_place",place);init()}
+};
+
+let times=[],hijri="",dayBase=null;
+
+function parse(t,base){const [h,m]=t.slice(0,5).split(":").map(Number);return new Date(base.getFullYear(),base.getMonth(),base.getDate(),h,m,0)}
+function dstr(d){return `${pad(d.getDate())}-${pad(d.getMonth()+1)}-${d.getFullYear()}`}
+
+async function fetchDay(d){
+  const key=`nv_${place.lat.toFixed(2)}_${place.lng.toFixed(2)}_${dstr(d)}`;
+  const c=ls.get(key);if(c)return c;
+  const url=`https://api.aladhan.com/v1/timings/${dstr(d)}?latitude=${place.lat}&longitude=${place.lng}&method=3&school=1`;
+  const r=await fetch(url);if(!r.ok)throw new Error("net");
+  const j=await r.json();const out={t:j.data.timings,h:j.data.date.hijri};
+  ls.set(key,out);return out;
+}
+
+async function init(){
+  $("err").textContent="";
+  const today=new Date(),tom=new Date(today.getTime()+864e5),yes=new Date(today.getTime()-864e5);
+  dayBase=today;
+  try{
+    const [a,b]=await Promise.all([fetchDay(today),fetchDay(tom)]);
+    let y=null;try{y=await fetchDay(yes)}catch(e){}
+    times=NAMES.map(n=>parse(a.t[n[0]],today));
+    times.push(parse(b.t.Fajr,tom));
+    times.prev=y?parse(y.t.Isha,yes):null;
+    const hm=a.h;hijri=`${hm.day} ${HIJRI[hm.month.number-1]} ${hm.year}-yil`;
+  }catch(e){
+    $("err").textContent="Internet yo'q yoki ma'lumot olinmadi. Keyinroq urinib ko'ring.";
+    return;
+  }
+  const d=today;
+  $("date").innerHTML=`${UZ_DAYS[d.getDay()]}, ${d.getDate()}-${UZ_MONTHS[d.getMonth()]} ${d.getFullYear()}<br><b>${hijri}</b> · ${place.name}`;
+  buildList();tick();
+  qibla();
+}
+
+function buildList(){
+  $("list").innerHTML=NAMES.map((n,i)=>`<div class="row" id="r${i}"><span class="ic">${n[2]}</span><span class="n">${n[1]}</span><span class="t">${pad(times[i].getHours())}:${pad(times[i].getMinutes())}</span></div>`).join("");
+}
+
+function tick(){
+  if(!times.length)return;
+  const now=new Date();
+  if(now.getDate()!==dayBase.getDate()){init();return}
+  let ni=times.findIndex(t=>t>now);
+  if(ni<0)ni=times.length-1;
+  const next=times[ni];
+  const prev=ni>0?times[ni-1]:(times.prev||new Date(next.getTime()-6*36e5));
+  const left=Math.max(0,next-now);
+  const s=Math.floor(left/1000);
+  $("cd").textContent=`${pad(Math.floor(s/3600))}:${pad(Math.floor(s%3600/60))}:${pad(s%60)}`;
+  const idx=ni%6;
+  $("nname").textContent=NAMES[idx][1];
+  $("nat").textContent=`soat ${pad(next.getHours())}:${pad(next.getMinutes())} da`;
+  const p=Math.min(1,Math.max(0,(now-prev)/(next-prev)));
+  $("ring").style.strokeDashoffset=552.9*(1-p);
+  NAMES.forEach((_,i)=>{const r=$("r"+i);if(!r)return;r.classList.toggle("next",i===idx&&ni<6);r.classList.toggle("past",times[i]<=now)});
+}
+setInterval(tick,1000);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)tick()});
+
+// Qibla
+let qb=0,heading=null;
+function qibla(){
+  const r=Math.PI/180,k=[21.4225,39.8262],f=place.lat*r,l=place.lng*r,kf=k[0]*r,kl=k[1]*r;
+  const y=Math.sin(kl-l)*Math.cos(kf),x=Math.cos(f)*Math.sin(kf)-Math.sin(f)*Math.cos(kf)*Math.cos(kl-l);
+  qb=(Math.atan2(y,x)/r+360)%360;
+  drawQ();
+}
+function drawQ(){
+  const a=heading==null?qb:qb-heading;
+  $("needle").style.transform=`rotate(${a}deg)`;
+  $("qtxt").textContent=heading==null?`Shimoldan ${Math.round(qb)}° (telefonni tekis tuting)`:`Strelka Makka tomonga qaraydi · ${Math.round(qb)}°`;
+}
+function onOri(e){
+  let h=null;
+  if(e.webkitCompassHeading!=null)h=e.webkitCompassHeading;
+  else if(e.alpha!=null)h=(360-e.alpha)%360;
+  if(h!=null){heading=h;drawQ()}
+}
+window.addEventListener("deviceorientationabsolute",onOri,true);
+window.addEventListener("deviceorientation",e=>{if(!("ondeviceorientationabsolute" in window))onOri(e)},true);
+
+init();
+</script>
+</body>
+</html>
